@@ -149,10 +149,10 @@ jobs:
     - name: 检查磁盘空间
       if: (!cancelled())
       run: df -hT
-      ls openwrt
-      ls openwrt/bin
-      ls openwrt/bin/targets/
-      ls openwrt/bin/your-target-name
+        ls openwrt
+        ls openwrt/bin
+        ls openwrt/bin/targets/
+        ls openwrt/bin/your-target-name
 
     - name: 上传 bin 文件夹
       uses: actions/upload-artifact@main
