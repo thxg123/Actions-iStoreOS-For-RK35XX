@@ -77,6 +77,29 @@ endef
 TARGET_DEVICES += dg_nas" >> target/linux/rockchip/image/rk35xx.mk
 
 
+# 增加YS-F3588A
+echo -e "\\ndefine Device/ys_f3588a
+\$(call Device/rk3588)
+  DEVICE_VENDOR := Rockchip
+  DEVICE_MODEL := RK3588 EVB7 LP4 V10 Board
+  DEVICE_DTS := YS-F3588A
+  SUPPORTED_DEVICES += ys,f3588a
+  DEVICE_PACKAGES := kmod-r8125 kmod-nvme kmod-hwmon-pwmfan kmod-thermal kmod-rkwifi-bcmdhd-pcie rkwifi-firmware-ap6275p ys-f3588a-firmware
+endef
+TARGET_DEVICES += ys_f3588a" >> target/linux/rockchip/image/rk35xx.mk
+
+
+# 增加cyber-aib
+echo -e "\\ndefine Device/rk3588-cyber-aib
+\$(call Device/rk3588)
+  DEVICE_VENDOR := Rockchip
+  DEVICE_MODEL := RK3588 EVB4 LP4 V10 Board
+  DEVICE_DTS := rk3588-cyber-aib
+  SUPPORTED_DEVICES += rk3588,cyber-aib
+  DEVICE_PACKAGES := kmod-r8125 kmod-nvme kmod-hwmon-pwmfan kmod-thermal kmod-scsi-core
+endef
+TARGET_DEVICES += rk3588-cyber-aib" >> target/linux/rockchip/image/rk35xx.mk
+
 
 sed -i "s/panther,x2|\\\/&\\n	dg,nas|\\\/g" target/linux/rockchip/rk35xx/base-files/lib/board/init.sh
 
@@ -86,6 +109,9 @@ sed -i "s/panther,x2|\\\/&\\n	dg,nas|\\\/g" target/linux/rockchip/rk35xx/base-fi
 cp -f $GITHUB_WORKSPACE/configfiles/rk3568-firefly-roc-pc-se-core.dtsi target/linux/rockchip/dts/rk3568/rk3568-firefly-roc-pc-se-core.dtsi
 
 cp -f $GITHUB_WORKSPACE/configfiles/rk3568-firefly-roc-pc-se.dts target/linux/rockchip/dts/rk3568/rk3568-firefly-roc-pc-se.dts
+
+cp -f $GITHUB_WORKSPACE/configfiles/YS-F3588A.dts target/linux/rockchip/dts/rk3588/YS-F3588A.dts
+cp -f $GITHUB_WORKSPACE/configfiles/rk3588-cyber-aib.dts target/linux/rockchip/dts/rk3588/rk3588-cyber-aib.dts
 
 
 
