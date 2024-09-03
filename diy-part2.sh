@@ -102,7 +102,7 @@ TARGET_DEVICES += rk3588-cyber-aib" >> target/linux/rockchip/image/rk35xx.mk
 
 
 echo -e "\\ndefine Device/rk3568-ynh-518
-\$(call Device/rk3588)
+\$(call Device/rk3568)
   DEVICE_VENDOR := Rockchip
   DEVICE_MODEL := Rockchip RK3568 EVB2 LP4X V10 Board
   DEVICE_DTS := rk3568-ynh518.dts
