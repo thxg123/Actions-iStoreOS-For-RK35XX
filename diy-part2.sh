@@ -101,9 +101,32 @@ endef
 TARGET_DEVICES += rk3588-cyber-aib" >> target/linux/rockchip/image/rk35xx.mk
 
 
+echo -e "\\ndefine Device/rk3568-ynh-518
+\$(call Device/rk3588)
+  DEVICE_VENDOR := Rockchip
+  DEVICE_MODEL := Rockchip RK3568 EVB2 LP4X V10 Board
+  DEVICE_DTS := rk3568-ynh518.dts
+  SUPPORTED_DEVICES += rk3568,ynh-518
+  DEVICE_PACKAGES := kmod-hwmon-pwmfan kmod-thermal
+endef
+TARGET_DEVICES += rk3568-ynh-518" >> target/linux/rockchip/image/rk35xx.mk
+
+
+
 sed -i "s/panther,x2|\\\/&\\n	dg,nas|\\\/g" target/linux/rockchip/rk35xx/base-files/lib/board/init.sh
 
 sed -i "s/panther,x2|\\\/&\\n	dg,nas|\\\/g" target/linux/rockchip/rk35xx/base-files/etc/board.d/02_network
+
+
+
+sed -i "s/dg,nas|\\\/&\\n	rk3568,ynh-518|\\\/g" target/linux/rockchip/rk35xx/base-files/lib/board/init.sh
+
+sed -i "s/dg,nas|\\\/&\\n	rk3568,ynh-518|\\\/g" target/linux/rockchip/rk35xx/base-files/etc/board.d/02_network
+
+
+
+cp -f $GITHUB_WORKSPACE/configfiles/rk3568-ynh518.dts target/linux/rockchip/dts/rk3568/rk3568-ynh518.dts
+
 
 
 cp -f $GITHUB_WORKSPACE/configfiles/rk3568-firefly-roc-pc-se-core.dtsi target/linux/rockchip/dts/rk3568/rk3568-firefly-roc-pc-se-core.dtsi
