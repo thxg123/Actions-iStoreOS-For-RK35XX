@@ -16,10 +16,14 @@
 	serial-number = "868777053653808";
 	model = "Rockchip RK3568 EVB2 LP4X V10 Board, YNH518, WUJING";
 	chosen {
+		bootargs = "earlycon=uart8250,mmio32,0xfe660000 console=ttyFIQ0 coherent_pool=1m";
 		stdout-path = "serial2:115200n8";
 	};
 	aliases {
-		mmc2 = &sdhci;
+		ethernet0 = &gmac1;
+		mmc0 = &sdhci;
+		mmc1 = &sdmmc0;
+		mmc2 = &sdmmc1;
 	};
 	dc_12v: dc-12v {
 		compatible = "regulator-fixed";
