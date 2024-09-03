@@ -803,12 +803,12 @@
 	status = "okay";
 };
 
-&usb2phy0_host {
+&u2phy0_host {
 	phy-supply = <&vcc5v0_otg>;
 	status = "okay";
 };
 
-&usb2phy0_otg {
+&u2phy0_otg {
 	phy-supply = <&vcc5v0_otg>;
 	status = "okay";
 };
@@ -817,18 +817,28 @@
 	status = "okay";
 };
 
-&usb2phy1_host {
+&u2phy1_host {
 	status = "okay";
 };
 
-&usb2phy1_otg {
+&u2phy1_otg {
 	status = "okay";
 };
 
-&usb_host0_xhci {
+&usbdrd_dwc3 {
+	dr_mode = "host";
 	extcon = <&usb2phy0>;
 	status = "okay";
 };
-&usb_host1_xhci {
+
+&usbdrd30 {
+	status = "okay";
+};
+
+&usbhost_dwc3 {
+	status = "okay";
+};
+
+&usbhost30 {
 	status = "okay";
 };
