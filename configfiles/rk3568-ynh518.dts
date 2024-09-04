@@ -30,16 +30,16 @@
 		regulator-name = "dc_12v";
 		regulator-always-on;
 		regulator-boot-on;
-		regulator-min-microvolt = <0xb71b00>;
-		regulator-max-microvolt = <0xb71b00>;
+		regulator-min-microvolt = <12000000>;
+		regulator-max-microvolt = <12000000>;
 	};
 	vcc3v3_sys: vcc3v3-sys {
 		compatible = "regulator-fixed";
 		regulator-name = "vcc3v3_sys";
 		regulator-always-on;
 		regulator-boot-on;
-		regulator-min-microvolt = <0x325aa0>;
-		regulator-max-microvolt = <0x325aa0>;
+		regulator-min-microvolt = <3300000>;
+		regulator-max-microvolt = <3300000>;
 		vin-supply = <&dc_12v>;
 	};
 	vcc5v0_sys:vcc5v0-sys {
@@ -47,8 +47,8 @@
 		regulator-name = "vcc5v0_sys";
 		regulator-always-on;
 		regulator-boot-on;
-		regulator-min-microvolt = <0x4c4b40>;
-		regulator-max-microvolt = <0x4c4b40>;
+		regulator-min-microvolt = <5000000>;
+		regulator-max-microvolt = <5000000>;
 		vin-supply = <&dc_12v>;
 	};
 	vcc5v0_otg: vcc5v0-otg-regulator {
@@ -70,6 +70,7 @@
 			regulator-off-in-suspend;
 		};
 	};
+
 	//这里可能需要转换,测试
 	
 	test_power_gpio1: test-power-gpio1 {
