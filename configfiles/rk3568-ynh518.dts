@@ -285,17 +285,18 @@
 	status = "okay";
 	phy-mode = "rgmii";
 	clock_in_out = "output";
-	//snps,reset-gpio = <&gpio4 RK_PB3 GPIO_ACTIVE_LOW>;
-	//snps,reset-active-low;
-	//snps,reset-delays-us = <0x00 20000 100000>;
+	snps,reset-gpio = <&gpio4 RK_PB3 GPIO_ACTIVE_LOW>;
+	snps,reset-active-low;
+	snps,reset-delays-us = <0x00 20000 100000>;
 	assigned-clocks = <&cru SCLK_GMAC1_RX_TX &cru SCLK_GMAC1>;
 	assigned-clock-parents = <&cru SCLK_GMAC1_RMII_SPEED>;
 	pinctrl-names = "default";
 	pinctrl-0 = <&gmac1m1_miim &gmac1m1_clkinout &gmac1m1_tx_bus2 &gmac1m1_rx_bus2 &gmac1m1_rx_er>;
+    tx_delay = <0x3c>;
+    rx_delay = <0x2f>;
 	phy-handle = <&rgmii_phy1>;
 	assigned-clock-rates = <0x00 50000000>;
 };
-
 &mdio1 {
 	rgmii_phy1: phy@0 {
 		compatible = "ethernet-phy-ieee802.3-c22";
