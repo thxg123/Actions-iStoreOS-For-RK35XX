@@ -224,11 +224,6 @@
 			rockchip,pins = <0 RK_PA2 0x02 &pcfg_pull_none>;
 		};
 	};
-	ethernet {
-		eth_phy_rst: eth_phy_rst {
-			rockchip,pins = <4 RK_PB3 RK_FUNC_GPIO &pcfg_pull_none>;
-		};
-	};
 	//power-on-gpios = <&gpio0 RK_PD3 GPIO_ACTIVE_HIGH &gpio0 RK_PD4 GPIO_ACTIVE_HIGH &gpio0 RK_PD5 GPIO_ACTIVE_HIGH &gpio2 RK_PD5 GPIO_ACTIVE_HIGH>;
 	power_on_test: power-on-test {
 		test_power1: test-power1 {
@@ -731,32 +726,42 @@
 	vref-supply = <&vcca_1v8>;
 	status = "okay";
 };
+
 &gmac1 {
-	local-mac-address = [42 3e 7c c9 3d 04];
-	status = "okay";
 	phy-mode = "rgmii";
 	clock_in_out = "output";
-	//snps,reset-gpio = <&gpio4 RK_PB3 GPIO_ACTIVE_LOW>;
-	//snps,reset-active-low;
-	//snps,reset-delays-us = <0x00 20000 100000>;
-	assigned-clocks = <&cru SCLK_GMAC1_RX_TX &cru SCLK_GMAC1>;
-	assigned-clock-parents = <&cru SCLK_GMAC1_RMII_SPEED>;
+
+	snps,reset-gpio = <&gpio4 RK_PB3 GPIO_ACTIVE_LOW>;
+	snps,reset-active-low;
+	/* Reset time is 20ms, 100ms for rtl8211f */
+	snps,reset-delays-us = <0 20000 100000>;
+
+	assigned-clocks = <&cru SCLK_GMAC1_RX_TX>, <&cru SCLK_GMAC1>;
+	assigned-clock-parents = <&cru SCLK_GMAC1_RGMII_SPEED>, <&cru CLK_MAC1_2TOP>;
+	assigned-clock-rates = <0>, <125000000>;
+
 	pinctrl-names = "default";
-	pinctrl-0 = <&gmac1m1_miim &gmac1m1_clkinout &gmac1m1_tx_bus2 &gmac1m1_rx_bus2 &gmac1m1_rx_er>;
+	pinctrl-0 = <&gmac1m1_miim
+			&gmac1m1_tx_bus2
+			&gmac1m1_rx_bus2
+			&gmac1m1_rgmii_clk
+			&gmac1m1_rgmii_bus>;
+
+    tx_delay = <0x3c>;
+    rx_delay = <0x2f>;
+
 	phy-handle = <&rgmii_phy1>;
-	assigned-clock-rates = <0x00 50000000>;
+	status = "okay";
 };
+
 &mdio1 {
-	rgmii_phy1: phy@0 {
+	rgmii_phy1: phy@1 {
 		compatible = "ethernet-phy-ieee802.3-c22";
-		reg = <0x01>;
-		/*新写法,注意不要写重复了*/
-		pinctrl-0 = <&eth_phy_rst>;
-		reset-assert-us = <20000>;
-		reset-deassert-us = <100000>;
-		reset-gpios = <&gpio4 RK_PB3 GPIO_ACTIVE_LOW>;
+		reg = <0x1>;
+		status = "okay";
 	};
 };
+
 /*
 	wireless_bluetooth: wireless-bluetooth {
 		compatible = "bluetooth-platdata";
