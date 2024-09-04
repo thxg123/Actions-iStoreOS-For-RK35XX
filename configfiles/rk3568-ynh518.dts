@@ -994,6 +994,12 @@
 		};
 	};
 
+	ethernet {
+		eth_phy_rst: eth_phy_rst {
+			rockchip,pins = <4 RK_PB3 RK_FUNC_GPIO &pcfg_pull_none>;
+		};
+	};
+
 	leds {
 		led_sys: led-sys {
 			rockchip,pins = <0 RK_PC0 RK_FUNC_GPIO &pcfg_pull_none>;
