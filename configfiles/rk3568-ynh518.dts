@@ -70,7 +70,6 @@
 			regulator-off-in-suspend;
 		};
 	};
-
 	//这里可能需要转换,测试
 	
 	test_power_gpio1: test-power-gpio1 {
