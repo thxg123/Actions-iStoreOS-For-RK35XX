@@ -62,11 +62,11 @@
 	};
 	vcc5v0_otg: vcc5v0-otg-regulator {
 		compatible = "regulator-fixed";
+		regulator-name = "vcc5v0_otg";
 		enable-active-high;
 		gpio = <&gpio0 RK_PA5 GPIO_ACTIVE_HIGH>;
 		pinctrl-names = "default";
 		pinctrl-0 = <&vcc5v0_otg_en>;
-		regulator-name = "vcc5v0_otg";
 	};
 	vcc3v3_lcd0_n: vcc3v3-lcd0-n {
 		compatible = "regulator-fixed";
