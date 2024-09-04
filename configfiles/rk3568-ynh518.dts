@@ -19,8 +19,7 @@
 	compatible = "radxa,rk3568-evb2-lp4x-v10,ynh518", "rockchip,rk3568";
 
 	chosen {
-		bootargs = "earlycon=uart8250,mmio32,0xfe660000 console=ttyFIQ0 coherent_pool=1m";
-		stdout-path = "serial2:115200n8";
+		bootargs = "earlycon=uart8250,mmio32,0xfe660000 console=ttyFIQ0 root=PARTUUID=614e0000-0000 rw rootwait";
 	};
 
 	aliases {
@@ -284,37 +283,30 @@
 
 
 &gmac1 {
+	local-mac-address = [42 3e 7c c9 3d 04];
+	status = "okay";
 	phy-mode = "rgmii";
 	clock_in_out = "output";
-
-	snps,reset-gpio = <&gpio4 RK_PB3 GPIO_ACTIVE_LOW>;
-	snps,reset-active-low;
-	/* Reset time is 20ms, 100ms for rtl8211f */
-	snps,reset-delays-us = <0 20000 100000>;
-
-	assigned-clocks = <&cru SCLK_GMAC1_RX_TX>, <&cru SCLK_GMAC1>;
-	assigned-clock-parents = <&cru SCLK_GMAC1_RGMII_SPEED>, <&cru CLK_MAC1_2TOP>;
-	assigned-clock-rates = <0>, <125000000>;
-
+	//snps,reset-gpio = <&gpio4 RK_PB3 GPIO_ACTIVE_LOW>;
+	//snps,reset-active-low;
+	//snps,reset-delays-us = <0x00 20000 100000>;
+	assigned-clocks = <&cru SCLK_GMAC1_RX_TX &cru SCLK_GMAC1>;
+	assigned-clock-parents = <&cru SCLK_GMAC1_RMII_SPEED>;
 	pinctrl-names = "default";
-	pinctrl-0 = <&gmac1m1_miim
-			&gmac1m1_tx_bus2
-			&gmac1m1_rx_bus2
-			&gmac1m1_rgmii_clk
-			&gmac1m1_rgmii_bus>;
-
-    tx_delay = <0x3c>;
-    rx_delay = <0x2f>;
-
+	pinctrl-0 = <&gmac1m1_miim &gmac1m1_clkinout &gmac1m1_tx_bus2 &gmac1m1_rx_bus2 &gmac1m1_rx_er>;
 	phy-handle = <&rgmii_phy1>;
-	status = "okay";
+	assigned-clock-rates = <0x00 50000000>;
 };
 
 &mdio1 {
-	rgmii_phy1: phy@1 {
+	rgmii_phy1: phy@0 {
 		compatible = "ethernet-phy-ieee802.3-c22";
-		reg = <0x1>;
-		status = "okay";
+		reg = <0x01>;
+		/*新写法,注意不要写重复了*/
+		pinctrl-0 = <&eth_phy_rst>;
+		reset-assert-us = <20000>;
+		reset-deassert-us = <100000>;
+		reset-gpios = <&gpio4 RK_PB3 GPIO_ACTIVE_LOW>;
 	};
 };
 
@@ -698,8 +690,12 @@
 };
 
 //debug ttl
+&uart1 {
+	status = "disabled";
+};
+
 &uart2 {
-	status = "okay";
+	status = "disabled";
 };
 
 &pwm4 {
