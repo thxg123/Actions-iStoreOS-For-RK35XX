@@ -280,8 +280,6 @@
 	};
 };
 
-
-
 &gmac1 {
 	local-mac-address = [42 3e 7c c9 3d 04];
 	status = "okay";
@@ -309,7 +307,6 @@
 		reset-gpios = <&gpio4 RK_PB3 GPIO_ACTIVE_LOW>;
 	};
 };
-
 
 &bus_npu {
 	bus-supply = <&vdd_logic>;
