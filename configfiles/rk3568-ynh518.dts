@@ -42,9 +42,18 @@
 		regulator-max-microvolt = <3300000>;
 		vin-supply = <&dc_12v>;
 	};
-	vcc5v0_sys:vcc5v0-sys {
+	vcc5v0_sys: vcc5v0-sys {
 		compatible = "regulator-fixed";
 		regulator-name = "vcc5v0_sys";
+		regulator-always-on;
+		regulator-boot-on;
+		regulator-min-microvolt = <5000000>;
+		regulator-max-microvolt = <5000000>;
+		vin-supply = <&dc_12v>;
+	};
+	vcc5v0_host: vcc5v0-host-regulator {
+		compatible = "regulator-fixed";
+		regulator-name = "vcc5v0_host";
 		regulator-always-on;
 		regulator-boot-on;
 		regulator-min-microvolt = <5000000>;
@@ -658,6 +667,7 @@
 		};
 };
 &pmu_io_domains {
+	pmuio1-supply = <&vcc3v3_pmu>;
 	pmuio2-supply = <&vcc3v3_pmu>;
 	vccio1-supply = <&vccio_acodec>;
 	vccio3-supply = <&vccio_sd>;
@@ -804,7 +814,7 @@
 };
 
 &u2phy0_host {
-	phy-supply = <&vcc5v0_otg>;
+	phy-supply = <&vcc5v0_host>;
 	status = "okay";
 };
 
@@ -818,10 +828,12 @@
 };
 
 &u2phy1_host {
+	phy-supply = <&vcc5v0_host>;
 	status = "okay";
 };
 
 &u2phy1_otg {
+	phy-supply = <&vcc5v0_host>;
 	status = "okay";
 };
 
