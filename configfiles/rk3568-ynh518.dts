@@ -18,7 +18,7 @@
 	model = "Rockchip RK3568 EVB2 LP4X V10 Board";
 	compatible = "radxa,rk3568-evb2-lp4x-v10,ynh518", "rockchip,rk3568";
 
-	chosen {
+	chosen: chosen {
 		bootargs = "earlycon=uart8250,mmio32,0xfe660000 console=ttyFIQ0 root=PARTUUID=614e0000-0000 rw rootwait";
 	};
 
@@ -327,7 +327,17 @@
 
 
 
+&rgmii_phy0 {
+	led_status_value = <0x6940>;
+};
 
+&rgmii_phy1 {
+	led_status_value = <0x6940>;
+};
+
+&pcie30phy {
+	status = "okay";
+};
 
 &bus_npu {
 	bus-supply = <&vdd_logic>;
