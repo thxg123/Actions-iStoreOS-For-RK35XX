@@ -325,13 +325,6 @@
 
 
 
-&rgmii_phy0 {
-	led_status_value = <0x6940>;
-};
-
-&rgmii_phy1 {
-	led_status_value = <0x6940>;
-};
 
 &pcie30phy {
 	status = "okay";
