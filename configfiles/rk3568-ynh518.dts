@@ -9,6 +9,11 @@
 #include <dt-bindings/gpio/gpio.h>
 #include <dt-bindings/pwm/pwm.h>
 #include <dt-bindings/pinctrl/rockchip.h>
+#ifdef DTS_NO_LEGACY
+#include <dt-bindings/soc/rockchip,vop2.h>
+#else
+#include <dt-bindings/display/rockchip_vop.h>
+#endif
 #include <dt-bindings/input/rk-input.h>
 #include <dt-bindings/display/drm_mipi_dsi.h>
 #include <dt-bindings/sensor-dev.h>
@@ -145,14 +150,6 @@
 		};
 	};
 
-
-
-
-
-
-	
-	
-	
 	vcc2v5_sys: vcc2v5-ddr {
 		compatible = "regulator-fixed";
 		regulator-name = "vcc2v5-sys";
